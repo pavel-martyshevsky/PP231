@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение пользователя</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<h2>Страница изменения пользователя</h2>
+<br>
+
+<form th:method="PATCH" th:action="@{/users/update}" th:object="${user}">
+    <label for="id">ID</label>
+    <input readonly type="text" th:field="*{id}" id="id"/>
+    <br><br>
+    <label for="name">Имя</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br><br>
+    <label for="surname">Фамилия</label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <br><br>
+    <label for="age">Возраст</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br><br>
+    <label for="email">Электронная почта</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br><br>
+    <input type="submit" value="Изменить">
+
+</form>
+<br>
+<form th:action="@{/users/{id}(id=${user.id})}" th:object="${user}">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <button type="submit">Удалить</button>
+</form>
+<br>
+<form th:action="@{/users}">
+    <button type="submit">Перейти на главную страницу</button>
+</form>
+</body>
+</html>

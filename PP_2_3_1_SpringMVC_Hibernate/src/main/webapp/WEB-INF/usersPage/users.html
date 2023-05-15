@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h2>Список пользователей</h2>
+<h2>Нажмите на id пользователя, чтобы получить информацию о нём в другой форме</h2>
+<table border="1" style="border-collapse:collapse;">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Возраст</th>
+        <th scope="col">Почта</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    <tr th:each="user: ${users}">
+        <td> <a th:href="@{/users/show/{id}(id=${user.getId()})}" th:utext="${user.getId()}">user</a></td>
+        <td th:utext="${user.getName()}"></td>
+        <td th:utext="${user.getSurname()}"></td>
+        <td th:utext="${user.getAge()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td>
+            <form th:action="@{/users/update/{id}(id=${user.id})}" th:object="${user}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Изменить</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}" th:object="${user}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/users/save}">
+    <button type="submit">Добавить пользователя</button>
+</form>
+</body>
+</html>
